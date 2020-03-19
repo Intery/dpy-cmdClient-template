@@ -16,14 +16,18 @@ Commands provided:
 """
 
 
-@cmd("async")
+@cmd("async",
+     group="Bot Admin",
+     desc="Run python code asynchronously in the bot context.")
 @checks.is_owner()
 async def cmd_async(ctx):
     """
-    Usage:
-        {prefix}async <code>
+    Usage``:
+        async <code>
     Description:
         Runs <code> as an asynchronous coroutine and prints the output or error.
+    Related:
+        eval
     """
     if ctx.arg_str == "":
         await ctx.error_reply("You must give me something to run!")
@@ -39,14 +43,18 @@ async def cmd_async(ctx):
     )
 
 
-@cmd("eval")
+@cmd("eval",
+     group="Bot Admin",
+     desc="Run python code through `eval`.")
 @checks.is_owner()
 async def cmd_eval(ctx):
     """
-    Usage:
-        {prefix}eval <code>
+    Usage``:
+        eval <code>
     Description:
         Runs <code> in current environment using eval() and prints the output or error.
+    Related:
+        async
     """
     if ctx.arg_str == "":
         await ctx.error_reply("You must give me something to run!")
