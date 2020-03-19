@@ -8,6 +8,7 @@ async def find_role(ctx, userstr, interactive=False, collection=None):
     """
     Find a guild role given a partial matching string,
     allowing custom role collections and several behavioural switches.
+
     Parameters
     ----------
     userstr: str
@@ -19,12 +20,14 @@ async def find_role(ctx, userstr, interactive=False, collection=None):
     collection: List(discord.Role)
         Collection of roles to search amongst.
         If none, uses the guild role list.
+
     Returns
     -------
     discord.Role:
         If a valid role is found.
     None:
         If no valid role has been found.
+
     Raises
     ------
     cmdClient.lib.UserCancelled:
@@ -86,7 +89,7 @@ async def find_role(ctx, userstr, interactive=False, collection=None):
             role = roles[0]
 
     if role is None:
-        await ctx.error_reply("Couldn't find a role matching `{}`!")
+        await ctx.error_reply("Couldn't find a role matching `{}`!".format(userstr))
 
     return role
 
@@ -96,6 +99,7 @@ async def find_channel(ctx, userstr, interactive=False, collection=None, chan_ty
     """
     Find a guild channel given a partial matching string,
     allowing custom channel collections and several behavioural switches.
+
     Parameters
     ----------
     userstr: str
@@ -109,12 +113,14 @@ async def find_channel(ctx, userstr, interactive=False, collection=None, chan_ty
         If none, uses the full guild channel list.
     chan_type: discord.ChannelType
         Type of channel to restrict the collection to.
+
     Returns
     -------
     discord.Channel:
         If a valid channel is found.
     None:
         If no valid channel has been found.
+
     Raises
     ------
     cmdClient.lib.UserCancelled:
@@ -130,7 +136,7 @@ async def find_channel(ctx, userstr, interactive=False, collection=None, chan_ty
         raise ValueError("User string passed to find_channel was empty.")
 
     # Create the collection to search from args or guild channels
-    collection = collection if collection else ctx.guild.roles
+    collection = collection if collection else ctx.guild.channels
     if chan_type is not None:
         collection = [chan for chan in collection if chan.type == chan_type]
 
@@ -178,6 +184,6 @@ async def find_channel(ctx, userstr, interactive=False, collection=None, chan_ty
             chan = channels[0]
 
     if chan is None:
-        await ctx.error_reply("Couldn't find a channel matching `{}`!")
+        await ctx.error_reply("Couldn't find a channel matching `{}`!".format(userstr))
 
     return chan
